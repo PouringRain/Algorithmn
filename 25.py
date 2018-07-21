@@ -47,3 +47,29 @@ class Solution:
         return None
     
   # 非递归
+# -*- coding:utf-8 -*-
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+class Solution:
+    # 返回对应节点TreeNode
+    def KthNode(self, pRoot, k):
+        # write code here
+        # 非递归实现找到二叉搜索树的第k小的数
+        if not pRoot: return None
+        stack = []
+        node = pRoot
+        kthNode = None
+        count = 0
+        while stack or node:
+            while node:
+                stack.append(node)
+                node = node.left
+            node = stack.pop()
+            count+=1
+            if count==k: 
+                kthNode = node
+            node = node.right
+        return kthNode
