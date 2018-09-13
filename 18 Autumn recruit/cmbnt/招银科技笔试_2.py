@@ -12,15 +12,15 @@ import re
 # ******************************开始写代码******************************
 
 
-def minJiansu(m, row, col, n):
+def minDistance(m, row, col, n):
     if row==n-1 and col==n-1:
         return m[row][col]
     elif row==n-1:
-        return minJiansu(row, col+1)+m[row][col]
+        return minDistance(row, col+1)+m[row][col]
     elif col==n-1:
-        return minJiansu(row+1, col)+m[row][col]
+        return minDistance(row+1, col)+m[row][col]
     else:
-        return m[0][0] + min(minJiansu(m[row+1:,:], row+1, col, n), minJiansu(m[:,col+1:], row, col+1, n))
+        return m[0][0] + min(minDistance(m[row+1:,:], row+1, col, n), minDistance(m[:,col+1:], row, col+1, n))
 
 
     return m[-1][-1]
@@ -37,4 +37,4 @@ for i in range(n):
     for j in range(n):
         m[i][j] = line[j]
 
-print(minJiansu(m, 0, 0, n))
+print(minDistance(m, 0, 0, n))
