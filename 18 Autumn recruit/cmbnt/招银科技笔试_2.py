@@ -11,19 +11,30 @@ import re
 # 当然，你也可以不按照下面这个模板来作答，完全按照自己的想法来 ^-^
 # ******************************开始写代码******************************
 
+def minDistance(self, word1, word2):
+        """
+        :type word1: str
+        :type word2: str
+        :rtype: int
+        """
+        size1 = len(word1)
+        size2 = len(word2)
+        dp = [[0 for i in range(size2+1)] for j in range(size1+1)]
+        
+        for i in range(size2+1):
+            dp[0][i] = i
+        for i in range(size1+1):
+            dp[i][0] = i
+        for i in range(1, size1+1):
+            for j in range(1, size2+1):
+                if word1[i-1]==word2[j-1]:
+                    dp[i][j] = dp[i-1][j-1]
+                else:
+                    dp[i][j] = min(dp[i-1][j-1]+1, 1+min(dp[i-1][j], dp[i][j-1]))
+                    
+        return dp[-1][-1]
 
-def minDistance(m, row, col, n):
-    if row==n-1 and col==n-1:
-        return m[row][col]
-    elif row==n-1:
-        return minDistance(row, col+1)+m[row][col]
-    elif col==n-1:
-        return minDistance(row+1, col)+m[row][col]
-    else:
-        return m[0][0] + min(minDistance(m[row+1:,:], row+1, col, n), minDistance(m[:,col+1:], row, col+1, n))
-
-
-    return m[-1][-1]
+  
 
 # ******************************结束写代码******************************
 
